@@ -1,0 +1,44 @@
+esphome:
+  name: plant-monitor
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+wifi:
+  ssid: "WLAN_NAME_HIER"
+  password: "WLAN_PASSWORT_HIER"
+
+api:
+
+ota:
+  platform: esphome
+
+sensor:
+  - platform: adc
+    pin: GPIO34
+    name: "Bodenfeuchtigkeit"
+    update_interval: 30s
+    unit_of_measurement: "%"
+    filters:
+      - calibrate_linear:
+          - 3.0 -> 0.0
+          - 1.2 -> 100.0
+
+
+  - platform: dht
+    pin: GPIO4
+    temperature:
+      name: "Raumtemperatur"
+    humidity:
+      name: "Luftfeuchtigkeit"
+    model: DHT22
+    update_interval: 60s
+
+
+switch:
+  - platform: gpio
+    pin: GPIO16
+    name: "Bewaesserungspumpe"
+    id: pumpe
