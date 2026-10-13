@@ -6,3 +6,9 @@ http:
     - 127.0.0.1
     - 172.16.0.0/12
     - 192.168.0.0/16
+device_tracker:
+  - platform: ping
+    hosts:
+      dario_handy: 192.168.1.50
+    count: 2
+    scan_interval: 30
